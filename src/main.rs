@@ -72,14 +72,14 @@ fn part_2(file: &str) -> i32 {
     let mut data = Vec::new();
     let mut nrows = 0;
     for line in lines {
-        data.extend(line);
+        data.extend(line.unwrap().chars());
         nrows += 1;
     }
     let matrix = DMatrix::from_row_slice(nrows, data.len() / nrows, &data);
     let mut potential_gears = Vec::new();
     for row in 0..matrix.nrows() {
         for col in 0..matrix.ncols() {
-            if matrix[(row, col)] == GEAR_CENTER.to_string() {
+            if matrix[(row, col)] == GEAR_CENTER {
                 potential_gears.push((row as i32, col as i32));
             }
         }
@@ -103,25 +103,24 @@ fn part_2(file: &str) -> i32 {
                 continue;
             }
             let neighbor = (neighbor.0 as usize, neighbor.1 as usize);
-            if matrix[(neighbor.0 as usize, neighbor.1 as usize)].chars().next().unwrap().is_digit(10) {
-                let mut num = matrix[neighbor].clone();
+            if matrix[(neighbor.0 as usize, neighbor.1 as usize)].is_digit(10) {
+                let mut num = matrix[neighbor].clone().to_string();
                 // Until we hit a non-digit, keep adding to the number with neighbors to the left and right of the current cell
-                let mut x_offset = col + 1;
-                while x_offset < matrix.ncols() as i32 && matrix[(row as usize, x_offset as usize)].chars().next().unwrap().is_digit(10) {
-                    num.push(matrix[(row as usize, x_offset as usize)].chars().next().unwrap());
-                    visited.insert((row, x_offset as i32));
+                let mut x_offset = neighbor.1 as i32 + 1;
+                while x_offset < matrix.ncols() as i32 && matrix[(neighbor.0, x_offset as usize)].is_digit(10) {
+                    num.push(matrix[(neighbor.0, x_offset as usize)]);
+                    visited.insert((neighbor.0 as i32, x_offset as i32));
                     x_offset += 1;
                 }
-                let mut x_offset = col - 1;
-                while x_offset >= 0 && matrix[(row as usize, x_offset as usize)].chars().next().unwrap().is_digit(10) {
-                    num.insert(0, matrix[(row as usize, x_offset as usize)].chars().next().unwrap());
-                    visited.insert((row, x_offset as i32));
+                let mut x_offset = neighbor.1 as i32 - 1;
+                while x_offset >= 0 && matrix[(neighbor.0, x_offset as usize)].is_digit(10) {
+                    num.insert(0, matrix[(neighbor.0, x_offset as usize)]);
+                    visited.insert((neighbor.0 as i32, x_offset as i32));
                     x_offset -= 1;
                 }
                 parts.push(num.parse::<i32>().unwrap());
             }
         }
-        println!("{:?}", parts);
         if parts.len() == 2 {
             sum += parts[0] * parts[1];
         }
@@ -133,5 +132,5 @@ fn main() {
     assert_eq!(part_1("example.txt"), 4361);
     assert_eq!(part_1("input.txt"), 528819);
     assert_eq!(part_2("example.txt"), 467835);
-    // println!("{}", part2(matrix));
+    assert_eq!(part_2("input.txt"), 80403602);
 }   
