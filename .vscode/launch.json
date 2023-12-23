@@ -7,15 +7,15 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'day_3'",
+            "name": "Debug executable 'advent_of_code_2023_03'",
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=day_3",
-                    "--package=day_3"
+                    "--bin=advent_of_code_2023_03",
+                    "--package=advent_of_code_2023_03"
                 ],
                 "filter": {
-                    "name": "day_3",
+                    "name": "advent_of_code_2023_03",
                     "kind": "bin"
                 }
             },
@@ -25,16 +25,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'day_3'",
+            "name": "Debug unit tests in executable 'advent_of_code_2023_03'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=day_3",
-                    "--package=day_3"
+                    "--bin=advent_of_code_2023_03",
+                    "--package=advent_of_code_2023_03"
                 ],
                 "filter": {
-                    "name": "day_3",
+                    "name": "advent_of_code_2023_03",
                     "kind": "bin"
                 }
             },
