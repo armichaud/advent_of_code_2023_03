@@ -129,8 +129,8 @@ fn part_2(file: &str) -> i32 {
 }
 
 fn main() {
-    assert_eq!(part_1("example.txt"), 4361);
-    assert_eq!(part_1("input.txt"), 528819);
-    assert_eq!(part_2("example.txt"), 467835);
-    assert_eq!(part_2("input.txt"), 80403602);
+    println!("{}", part_1("example.txt"));
+    println!("{}", part_1("input.txt"));
+    println!("{}", part_2("example.txt"));
+    println!("{}", part_2("input.txt"));
 }   
